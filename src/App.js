@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Home from './components/Home';
+import BurgerMenu from './components/BurgerMenu';
+import SideBar from './components/SideBar';
+import { connect } from 'react-redux';
 
 class App extends Component {
+
+  bodyClick = (e) =>{
+    return (this.props.menuClicked)?(this.props.menuOnClick()):(e.stopPropagation())
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div id="myCanvasNav" className="overlay"
+          onClick={this.bodyClick} style={(this.props.menuClicked)?{width:"100%"}:{width:"0"}}>
+        </div>
+        <BurgerMenu />
+        <SideBar />
+        <Home />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return{
+    menuClicked : state.menuClicked
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return{
+    menuOnClick: () => dispatch({ type: 'MENU_CLICKED'})
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
