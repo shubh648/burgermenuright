@@ -6,7 +6,7 @@ The "burger menu navigation" covers both the requirements. On expansion of the m
 ## Instructions for running project
 ```
 git clone https://github.com/shubh648/burgermenuright.git
-cd eventbubbling
+cd burgermenuright
 npm i
 npm start
 ```
